@@ -23,42 +23,44 @@
             height: calc(100vh - 50px);
             border: none;
         }
+        .nav-tabs {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
     <div class="sticky-header">
         <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="#">Charts</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="loadContent('Charts Mobile 4Hr.htm')">4-Hour</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="loadContent('Charts Mobile Daily.htm')">Daily</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="loadContent('Charts Mobile Weekly.htm')">Weekly</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="loadContent('Economic Calender Desktops.htm')">Calender</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <ul class="nav nav-tabs" id="tabNavigation">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="loadContent('Charts Mobile 4Hr.htm')">4 Hr</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="loadContent('Charts Mobile Daily.htm')">Dly</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="loadContent('Charts Mobile Weekly.htm')">Wkly</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="loadContent('Charts Mini1Hr.htm', this)">1 Hr</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="loadContent('Economic Calender Desktops.htm')">Cal</a>
+                </li>
+            </ul>
         </div>
     </div>
     <div id="content">
         <iframe id="iframeContent" src="Charts Mobile 4Hr.htm"></iframe>
+        
     </div>
 
     <script>
-        function loadContent(page) {
+        function loadContent(page, element) {
             document.getElementById('iframeContent').src = page;
+            // Update active class
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            element.classList.add('active');
         }
     </script>
 
