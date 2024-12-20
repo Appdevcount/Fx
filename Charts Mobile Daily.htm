@@ -1,6 +1,19 @@
 <html>
 
 <body>
+  <script>
+    //  const screenWidth = window.innerWidth; // Get current screen width
+    //     const widgetWidth = screenWidth > widgetWidth ? widgetWidth : screenWidth -20; // Ensure a margin for smaller screens
+
+         // Determine screen width and orientation
+         var screenWidth = window.innerWidth;
+        var isPortrait = window.matchMedia("(orientation: portrait)").matches;
+
+        // Adjust widget width based on screen and orientation
+        var widgetWidth = isPortrait ? screenWidth * 0.9 : screenWidth > 920 ? 920 : screenWidth - 20;
+
+
+  </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <div class="row" style="width:90%">
         <div class="col-md-12">
@@ -15,7 +28,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:EURUSD",
     "interval": "D",
@@ -47,7 +60,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:GBPUSD",
     "interval": "D",
@@ -79,7 +92,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:USDCHF",
     "interval": "D",
@@ -111,7 +124,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:USDCAD",
     "interval": "D",
@@ -143,7 +156,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:USDJPY",
     "interval": "D",
@@ -175,7 +188,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:EURJPY",
     "interval": "D",
@@ -207,7 +220,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:AUDUSD",
     "interval": "D",
@@ -239,7 +252,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:NZDUSD",
     "interval": "D",
@@ -271,7 +284,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:EURGBP",
     "interval": "D",
@@ -303,7 +316,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:EURCHF",
     "interval": "D",
@@ -335,7 +348,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:AUDJPY",
     "interval": "D",
@@ -367,7 +380,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:GBPJPY",
     "interval": "D",
@@ -399,7 +412,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:CHFJPY",
     "interval": "D",
@@ -431,7 +444,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:EURCAD",
     "interval": "D",
@@ -463,7 +476,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:GBPCAD",
     "interval": "D",
@@ -495,7 +508,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:AUDCAD",
     "interval": "D",
@@ -527,7 +540,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:CADJPY",
     "interval": "D",
@@ -559,7 +572,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:NZDJPY",
     "interval": "D",
@@ -591,7 +604,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:AUDNZD",
     "interval": "D",
@@ -623,7 +636,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:GBPAUD",
     "interval": "D",
@@ -655,7 +668,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:EURAUD",
     "interval": "D",
@@ -687,7 +700,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:GBPCHF",
     "interval": "D",
@@ -719,7 +732,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:EURNZD",
     "interval": "D",
@@ -751,7 +764,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:AUDCHF",
     "interval": "D",
@@ -783,7 +796,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:GBPNZD",
     "interval": "D",
@@ -815,7 +828,7 @@
     <script type="text/javascript">
     new TradingView.widget(
     {
-    "width": 920,
+    "width": widgetWidth,
     "height": 430,
     "symbol": "OANDA:GBPCAD",
     "interval": "D",
