@@ -45,16 +45,16 @@
       cursor: pointer;
     }
 
-    /* Sticky container styles */
+    
     .button-container {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       background-color: #f8f9fa;
       padding: 10px;
-      z-index: 1000;
-      /* Ensures it stays above other content */
-      border-bottom: 1px solid #ddd;
-      /* Optional for better separation */
+      border-bottom: 1px solid #ddd; /* Optional for better separation */
+      z-index: 1000; /* Ensures it stays above other content */
     }
   </style>
   <div class="button-container">
