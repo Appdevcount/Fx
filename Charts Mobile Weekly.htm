@@ -927,6 +927,52 @@
     padding-left: 20px;
   }
 </style>
+<button class="scroll-to-top-btn" id="scrollToTopBtn" onclick="scrollToTop()">
+  ↑TOP
+</button>
+<style>
+ .scroll-to-top-btn {
+    position: fixed;
+    bottom: 20px; /* Distance from the bottom */
+    right: 20px; /* Distance from the right */
+    background-color: #007bff; /* Blue button */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it's above other content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none; /* Hidden by default */
+    transition: opacity 0.3s ease;
+  }
+
+  .scroll-to-top-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+</style>
+<script>
+// Get the button
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+// Show the button when the user scrolls down 200px
+window.onscroll = function() {
+  if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+    scrollToTopBtn.style.display = "block"; // Show the button
+  } else {
+    scrollToTopBtn.style.display = "none"; // Hide the button
+  }
+};
+
+// Scroll to top function
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // Smooth scrolling
+  });
+}
+</script>
 </body>
 
 </html>
