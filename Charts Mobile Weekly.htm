@@ -5,16 +5,85 @@
     //  const screenWidth = window.innerWidth; // Get current screen width
     //     const widgetWidth = screenWidth > widgetWidth ? widgetWidth : screenWidth -20; // Ensure a margin for smaller screens
 
-         // Determine screen width and orientation
-         var screenWidth = window.innerWidth;
-        var isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    // Determine screen width and orientation
+    var screenWidth = window.innerWidth;
+    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
-        // Adjust widget width based on screen and orientation
-        var widgetWidth = isPortrait ? screenWidth * 0.9 : screenWidth > 1200 ? 1100 : screenWidth - 20;
+    // Adjust widget width based on screen and orientation
+    var widgetWidth = isPortrait ? screenWidth * 0.9 : screenWidth > 1200 ? 1100 : screenWidth - 20;
+    function handleButtonClick(searchText) {
+      const boldElements = document.querySelectorAll("b");
+      let found = false;
 
+      for (const element of boldElements) {
+        if (element.textContent.toLowerCase() === searchText.toLowerCase()) {
+          // Scroll to the matching <b> element
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          // Optional: Highlight the matching element
+          element.style.backgroundColor = "yellow";
+
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        console.log(`No <b> element found with text: "${searchText}"`);
+      }
+    }
 
   </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    /* Button styles */
+    .currency-button {
+      margin: 0px;
+      padding: 0px;
+      font-size: 8px;
+      cursor: pointer;
+    }
+
+    /* Sticky container styles */
+    .button-container {
+      position: sticky;
+      top: 0;
+      background-color: #f8f9fa;
+      padding: 10px;
+      z-index: 1000;
+      /* Ensures it stays above other content */
+      border-bottom: 1px solid #ddd;
+      /* Optional for better separation */
+    }
+  </style>
+  <div class="button-container">
+    <button class="currency-button" onclick="handleButtonClick('GBPUSD')">GBPUSD</button>
+    <button class="currency-button" onclick="handleButtonClick('USDCHF')">USDCHF</button>
+    <button class="currency-button" onclick="handleButtonClick('USDCAD')">USDCAD</button>
+    <button class="currency-button" onclick="handleButtonClick('USDJPY')">USDJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('EURJPY')">EURJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDUSD')">AUDUSD</button>
+    <button class="currency-button" onclick="handleButtonClick('NZDUSD')">NZDUSD</button>
+    <button class="currency-button" onclick="handleButtonClick('EURGBP')">EURGBP</button>
+    <button class="currency-button" onclick="handleButtonClick('EURCHF')">EURCHF</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDJPY')">AUDJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPJPY')">GBPJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('CHFJPY')">CHFJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('EURCAD')">EURCAD</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPCAD')">GBPCAD</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDCAD')">AUDCAD</button>
+    <button class="currency-button" onclick="handleButtonClick('CADJPY')">CADJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('NZDJPY')">NZDJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDNZD')">AUDNZD</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPAUD')">GBPAUD</button>
+    <button class="currency-button" onclick="handleButtonClick('EURAUD')">EURAUD</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPCHF')">GBPCHF</button>
+    <button class="currency-button" onclick="handleButtonClick('EURNZD')">EURNZD</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDCHF')">AUDCHF</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPNZD')">GBPNZD</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPCAD')">GBPCAD</button>
+  </div>
     <div class="row" style="width:90%">
         <div class="col-md-12">
             <div class="text-center" style="width:750px;font-size: 20PX;">
