@@ -11,6 +11,16 @@
 
     // Adjust widget width based on screen and orientation
     var widgetWidth = isPortrait ? screenWidth * 0.9 : screenWidth > 1200 ? 1100 : screenWidth - 20;
+    window.addEventListener('message', (event) => {
+      // Log the received message
+      console.log('Message received from parent:', event.data);
+      
+      // Optionally, restrict by origin for security
+      // if (event.origin !== 'http://your-parent-site-origin.com') return;
+
+      // Display the message in the iframe
+      handleButtonClick(event.data) 
+    });
     function handleButtonClick(searchText) {
       const boldElements = document.querySelectorAll("b");
       let found = false;
