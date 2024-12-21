@@ -10,7 +10,7 @@
     var isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // Adjust widget width based on screen and orientation
-    var widgetWidth = isPortrait ? screenWidth * 0.9 : screenWidth > 920 ? 1100 : screenWidth - 20;
+    var widgetWidth = isPortrait ? screenWidth * 0.9 : screenWidth > 920 ? 920 : screenWidth - 20;
     function handleButtonClick(searchText) {
       const boldElements = document.querySelectorAll("b");
       let found = false;
