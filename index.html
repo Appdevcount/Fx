@@ -3,9 +3,7 @@
 <body>
   <script>
     var intervalPeriod = "240";
-    window.onload = function () {
-      initializeTradingViewWidgets();
-    };
+    var height =430;
     //  const screenWidth = window.innerWidth; // Get current screen width
     //     const widgetWidth = screenWidth > widgetWidth ? widgetWidth : screenWidth -20; // Ensure a margin for smaller screens
 
@@ -37,24 +35,30 @@
       }
     }
 
+    window.onload = function () {
+      initializeTradingViewWidgets(widgetWidth,height);
+    };
     function setPeriod(period) {
       if (period === '4Hr') {
         intervalPeriod = '240';
-        initializeTradingViewWidgets();
+        initializeTradingViewWidgets(widgetWidth,height);
       } else if (period === 'Daily') {
         intervalPeriod = 'D';
-        initializeTradingViewWidgets();
+        initializeTradingViewWidgets(widgetWidth,height);
       } else if (period === 'Weekly') {
         intervalPeriod = 'W';
-        initializeTradingViewWidgets();
+        initializeTradingViewWidgets(widgetWidth,height);
       } else if (period === '1Hr') {
         intervalPeriod = '60';
-        initializeTradingViewWidgets();
+        initializeTradingViewWidgets(widgetWidth,height);
+      } else if (period === '1Candle') {
+        intervalPeriod = '60';
+        initializeTradingViewWidgets(300,350);
       } else if (period === 'Cal') {
         document.getElementById("ecalender").scrollIntoView({ behavior: "smooth", block: "center" });
       }
     }
-    function initializeTradingViewWidgets() {
+    function initializeTradingViewWidgets(widgetWidth,height) {
                 const widgetConfigs = [
                   { container_id: "tradingview_f9f64", symbol: "OANDA:EURUSD" },
                   { container_id: "tradingview_5e141", symbol: "OANDA:GBPUSD" },
@@ -87,7 +91,7 @@
                 widgetConfigs.forEach(config => {
                   new TradingView.widget({
                     "width": widgetWidth,
-                    "height": 430,
+                    "height": height,
                     "symbol": config.symbol,
                     "interval": intervalPeriod,
                     "timezone": "Etc/UTC",
@@ -153,11 +157,12 @@
     <button class="currency-button" onclick="handleButtonClick('GBPNZD')">GBPNZD</button>
     <button class="currency-button" onclick="handleButtonClick('AUDNZD')">AUDNZD</button>||
     <button class="currency-button" onclick="handleButtonClick('GBPAUD')">GBPAUD</button>
-    <button class="currency-button" onclick="handleButtonClick('EURAUD')">EURAUD</button>
+    <button class="currency-button" onclick="handleButtonClick('EURAUD')">EURAUD</button>||||
     <button class="currency-button" onclick="setPeriod('4Hr')">4Hr</button>
     <button class="currency-button" onclick="setPeriod('Daily')">Daily</button>
     <button class="currency-button" onclick="setPeriod('Weekly')">Weekly</button>
     <button class="currency-button" onclick="setPeriod('1Hr')">1Hr</button>
+    <button class="currency-button" onclick="setPeriod('1Candle')">1Candle</button>
     <button class="currency-button" onclick="setPeriod('Cal')">Cal</button>
   </div>
   <div id="chartsdiv" class="row" style="width:90%">
