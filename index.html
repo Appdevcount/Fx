@@ -1,121 +1,654 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic HTML Loader</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            background-color: #f8f9fa;
-            z-index: 1000;
-            border-bottom: 1px solid #ddd;
-            padding: 10px;
-        }
-        iframe {
-            width: 100%;
-            height: calc(100vh - 50px);
-            border: none;
-        }
-        .nav-tabs {
-            margin-bottom: 0;
-        }
-    </style>
-</head>
+<html>
+
 <body>
-    <div class="sticky-header">
-        <div class="container-fluid">
-            <ul class="nav nav-tabs" id="tabNavigation">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#" onclick="loadContent('Charts Mobile 4Hr.htm')">4 Hr</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="loadContent('Charts Mobile Daily.htm')">Dly</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="loadContent('Charts Mobile Weekly.htm')">Wkly</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="loadContent('Charts Mini1Hr.htm', this)">1 Hr</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="loadContent('Economic Calender Desktops.htm')">Cal</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="loadContent('Better Avoid INTRA 1LastCandle Line.htm')">1 Hr Last Avoid</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <style>
-                        .currency-button {
-                          margin: 0px;
-                          padding: 0px;
-                          font-size: 8px;
-                          cursor: pointer;
-                        }
-                    
-                      </style>
-                      <script>
-                        function handleButtonClick(message) {
-                          const iframe = document.getElementById('iframeContent');
-                          if (iframe && iframe.contentWindow) {
-                            iframe.contentWindow.postMessage(message, 'https://appdevcount.github.io'); // Replace '*' with the target iframe's origin for security
-                            console.log(message);
-                          }
-                        }
-                      </script>
-                      <div class="button-container">
-                        <button class="currency-button" onclick="handleButtonClick('GBPUSD')">GBPUSD</button>
-                        <button class="currency-button" onclick="handleButtonClick('USDCHF')">USDCHF</button>
-                        <button class="currency-button" onclick="handleButtonClick('USDCAD')">USDCAD</button>
-                        <button class="currency-button" onclick="handleButtonClick('USDJPY')">USDJPY</button>
-                        <button class="currency-button" onclick="handleButtonClick('EURJPY')">EURJPY</button>
-                        <button class="currency-button" onclick="handleButtonClick('AUDUSD')">AUDUSD</button>
-                        <button class="currency-button" onclick="handleButtonClick('NZDUSD')">NZDUSD</button>
-                        <button class="currency-button" onclick="handleButtonClick('EURGBP')">EURGBP</button>
-                        <button class="currency-button" onclick="handleButtonClick('EURCHF')">EURCHF</button>
-                        <button class="currency-button" onclick="handleButtonClick('AUDJPY')">AUDJPY</button>
-                        <button class="currency-button" onclick="handleButtonClick('GBPJPY')">GBPJPY</button>
-                        <button class="currency-button" onclick="handleButtonClick('CHFJPY')">CHFJPY</button>
-                        <button class="currency-button" onclick="handleButtonClick('EURCAD')">EURCAD</button>
-                        <button class="currency-button" onclick="handleButtonClick('GBPCAD')">GBPCAD</button>
-                        <button class="currency-button" onclick="handleButtonClick('AUDCAD')">AUDCAD</button>
-                        <button class="currency-button" onclick="handleButtonClick('CADJPY')">CADJPY</button>
-                        <button class="currency-button" onclick="handleButtonClick('NZDJPY')">NZDJPY</button>
-                        <button class="currency-button" onclick="handleButtonClick('AUDNZD')">AUDNZD</button>
-                        <button class="currency-button" onclick="handleButtonClick('GBPAUD')">GBPAUD</button>
-                        <button class="currency-button" onclick="handleButtonClick('EURAUD')">EURAUD</button>
-                        <button class="currency-button" onclick="handleButtonClick('GBPCHF')">GBPCHF</button>
-                        <button class="currency-button" onclick="handleButtonClick('EURNZD')">EURNZD</button>
-                        <button class="currency-button" onclick="handleButtonClick('AUDCHF')">AUDCHF</button>
-                        <button class="currency-button" onclick="handleButtonClick('GBPNZD')">GBPNZD</button>
-                        <button class="currency-button" onclick="handleButtonClick('GBPCAD')">GBPCAD</button>
-                      </div>
-                </li> -->
+  <script>
+    var intervalPeriod = "240";
+    window.onload = function () {
+      initializeTradingViewWidgets();
+    };
+    //  const screenWidth = window.innerWidth; // Get current screen width
+    //     const widgetWidth = screenWidth > widgetWidth ? widgetWidth : screenWidth -20; // Ensure a margin for smaller screens
 
-            </ul>
-        </div>
-    </div>
-    <div id="content">
-        <iframe id="iframeContent" src="Charts Mobile 4Hr.htm"></iframe>
-        
-    </div>
+    // Determine screen width and orientation
+    var screenWidth = window.innerWidth;
+    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
-    <script>
-        function loadContent(page, element) {
-            document.getElementById('iframeContent').src = page;
-            // Update active class
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            element.classList.add('active');
+    // Adjust widget width based on screen and orientation
+    var widgetWidth = isPortrait ? screenWidth * 0.9 : screenWidth > 920 ? 920 : screenWidth - 20;
+    function handleButtonClick(searchText) {
+      const boldElements = document.querySelectorAll("b");
+      let found = false;
+
+      for (const element of boldElements) {
+        if (element.textContent.toLowerCase() === searchText.toLowerCase()) {
+          // Scroll to the matching <b> element
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          // Optional: Highlight the matching element
+          element.style.backgroundColor = "yellow";
+
+          found = true;
+          break;
         }
-    </script>
+      }
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+7S7ChaPp53HIJcTw9KKohxFuLvRZ43BrvEjxOf" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhG81mKk3In2VH0h1zzTTCGIJT2COM6Kf0nY5Nq9K/EUjDzWZce3gqAe9xNf" crossorigin="anonymous"></script>
+      if (!found) {
+        console.log(`No <b> element found with text: "${searchText}"`);
+      }
+    }
+
+    function setPeriod(period) {
+      if (period === '4Hr') {
+        intervalPeriod = '240';
+        initializeTradingViewWidgets();
+      } else if (period === 'Daily') {
+        intervalPeriod = 'D';
+        initializeTradingViewWidgets();
+      } else if (period === 'Weekly') {
+        intervalPeriod = 'W';
+        initializeTradingViewWidgets();
+      } else if (period === '1Hr') {
+        intervalPeriod = '60';
+        initializeTradingViewWidgets();
+      } else if (period === 'Cal') {
+        document.getElementById("ecalender").scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+    function initializeTradingViewWidgets() {
+                const widgetConfigs = [
+                  { container_id: "tradingview_f9f64", symbol: "OANDA:EURUSD" },
+                  { container_id: "tradingview_5e141", symbol: "OANDA:GBPUSD" },
+                  { container_id: "tradingview_d3382", symbol: "OANDA:USDCHF" },
+                  { container_id: "tradingview_03a7a", symbol: "OANDA:USDCAD" },
+                  { container_id: "tradingview_19083", symbol: "OANDA:USDJPY" },
+                  { container_id: "tradingview_facc3", symbol: "OANDA:EURJPY" },
+                  { container_id: "tradingview_ec228", symbol: "OANDA:AUDUSD" },
+                  { container_id: "tradingview_13063", symbol: "OANDA:NZDUSD" },
+                  { container_id: "tradingview_e1e63", symbol: "OANDA:EURGBP" },
+                  { container_id: "tradingview_6fafd", symbol: "OANDA:EURCHF" },
+                  { container_id: "tradingview_78c6e", symbol: "OANDA:AUDJPY" },
+                  { container_id: "tradingview_145ca", symbol: "OANDA:GBPJPY" },
+                  { container_id: "tradingview_7885e", symbol: "OANDA:CHFJPY" },
+                  { container_id: "tradingview_d8e36", symbol: "OANDA:EURCAD" },
+                  { container_id: "tradingview_261e3", symbol: "OANDA:GBPCAD" },
+                  { container_id: "tradingview_2955b", symbol: "OANDA:AUDCAD" },
+                  { container_id: "tradingview_a71ba", symbol: "OANDA:CADJPY" },
+                  { container_id: "tradingview_aced8", symbol: "OANDA:NZDJPY" },
+                  { container_id: "tradingview_66466", symbol: "OANDA:AUDNZD" },
+                  { container_id: "tradingview_b8829", symbol: "OANDA:GBPAUD" },
+                  { container_id: "tradingview_37503", symbol: "OANDA:EURAUD" },
+                  { container_id: "tradingview_10d73", symbol: "OANDA:GBPCHF" },
+                  { container_id: "tradingview_319ae", symbol: "OANDA:EURNZD" },
+                  { container_id: "tradingview_a457a", symbol: "OANDA:AUDCHF" },
+                  { container_id: "tradingview_85403", symbol: "OANDA:GBPNZD" },
+                  { container_id: "tradingview_6337a", symbol: "OANDA:GBPCAD" }
+                ];
+
+                widgetConfigs.forEach(config => {
+                  new TradingView.widget({
+                    "width": widgetWidth,
+                    "height": 430,
+                    "symbol": config.symbol,
+                    "interval": intervalPeriod,
+                    "timezone": "Etc/UTC",
+                    "theme": "light",
+                    "style": "1",
+                    "locale": "en",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "hide_legend": true,
+                    "save_image": false,
+                    "calendar": false,
+                    "container_id": config.container_id
+                  });
+                });
+              }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    /* Button styles */
+    .currency-button {
+      margin: 0px;
+      padding: 1px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* Sticky container styles */
+    .button-container {
+      position: sticky;
+      top: 3;
+      background-color: #f8f9fa;
+      padding: 10px;
+      z-index: 1000;
+      /* Ensures it stays above other content */
+      border-bottom: 1px solid #ddd;
+      /* Optional for better separation */
+    }
+  </style>
+  <div class="button-container">
+    <button class="currency-button" onclick="handleButtonClick('EURUSD')">EURUSD</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPUSD')">GBPUSD</button>
+    <button class="currency-button" onclick="handleButtonClick('NZDUSD')">NZDUSD</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDUSD')">AUDUSD</button>||
+    <button class="currency-button" onclick="handleButtonClick('GBPJPY')">GBPJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('CADJPY')">CADJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('NZDJPY')">NZDJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('CHFJPY')">CHFJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDJPY')">AUDJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('USDJPY')">USDJPY</button>
+    <button class="currency-button" onclick="handleButtonClick('EURJPY')">EURJPY</button>||
+    <button class="currency-button" onclick="handleButtonClick('USDCHF')">USDCHF</button>
+    <button class="currency-button" onclick="handleButtonClick('EURCHF')">EURCHF</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPCHF')">GBPCHF</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDCHF')">AUDCHF</button>||
+    <button class="currency-button" onclick="handleButtonClick('USDCAD')">USDCAD</button>
+    <button class="currency-button" onclick="handleButtonClick('EURCAD')">EURCAD</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPCAD')">GBPCAD</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDCAD')">AUDCAD</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPCAD')">GBPCAD</button>||
+    <button class="currency-button" onclick="handleButtonClick('EURGBP')">EURGBP</button>||
+    <button class="currency-button" onclick="handleButtonClick('EURNZD')">EURNZD</button>
+    <button class="currency-button" onclick="handleButtonClick('GBPNZD')">GBPNZD</button>
+    <button class="currency-button" onclick="handleButtonClick('AUDNZD')">AUDNZD</button>||
+    <button class="currency-button" onclick="handleButtonClick('GBPAUD')">GBPAUD</button>
+    <button class="currency-button" onclick="handleButtonClick('EURAUD')">EURAUD</button>
+    <button class="currency-button" onclick="setPeriod('4Hr')">4Hr</button>
+    <button class="currency-button" onclick="setPeriod('Daily')">Daily</button>
+    <button class="currency-button" onclick="setPeriod('Weekly')">Weekly</button>
+    <button class="currency-button" onclick="setPeriod('1Hr')">1Hr</button>
+    <button class="currency-button" onclick="setPeriod('Cal')">Cal</button>
+  </div>
+  <div id="chartsdiv" class="row" style="width:90%">
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>EURUSD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_f9f64"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURUSD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">EURUSD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>GBPUSD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_5e141"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/GBPUSD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">GBPUSD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>USDCHF</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_d3382"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/USDCHF/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">USDCHF Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+       
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>USDCAD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_03a7a"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/USDCAD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">USDCAD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+       
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>USDJPY</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_19083"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/USDJPY/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">USDJPY Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>EURJPY</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_facc3"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURJPY/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">EURJPY Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>AUDUSD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_ec228"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AUDUSD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">AUDUSD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+          
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>NZDUSD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_13063"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NZDUSD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">NZDUSD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>EURGBP</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_e1e63"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURGBP/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">EURGBP Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+          
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>EURCHF</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_6fafd"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURCHF/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">EURCHF Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>AUDJPY</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_78c6e"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AUDJPY/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">AUDJPY Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>GBPJPY</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_145ca"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/GBPJPY/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">GBPJPY Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>CHFJPY</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_7885e"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/CHFJPY/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">CHFJPY Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>EURCAD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_d8e36"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURCAD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">EURCAD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>GBPCAD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_261e3"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/GBPCAD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">GBPCAD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>AUDCAD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_2955b"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AUDCAD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">AUDCAD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>CADJPY</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_a71ba"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/CADJPY/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">CADJPY Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>NZDJPY</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_aced8"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NZDJPY/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">NZDJPY Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>AUDNZD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_66466"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AUDNZD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">AUDNZD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>GBPAUD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_b8829"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/GBPAUD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">GBPAUD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>EURAUD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_37503"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURAUD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">EURAUD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>GBPCHF</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_10d73"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/GBPCHF/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">GBPCHF Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>EURNZD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_319ae"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURNZD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">EURNZD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+          
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>AUDCHF</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_a457a"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AUDCHF/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">AUDCHF Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>GBPNZD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_85403"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/GBPNZD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">GBPNZD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+         
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+    <div class="col-md-12">
+      <div class="text-center" style="width:750px;font-size: 20PX;">
+        <b>GBPCAD</b>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_6337a"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/GBPCAD/?exchange=OANDA"
+            rel="noopener" target="_blank"><span class="blue-text">GBPCAD Chart</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+  </div>
+  <style>
+    #header-toolbar-intervals {
+      font-weight: bolder;
+
+    }
+
+    .tradingview-widget-container {
+      padding-left: 20px;
+    }
+  </style>
+  <button class="scroll-to-top-btn" id="scrollToTopBtn" onclick="scrollToTop()">
+    ↑TOP
+  </button>
+  <style>
+    .scroll-to-top-btn {
+      position: fixed;
+      bottom: 20px;
+      /* Distance from the bottom */
+      bottom: 100px;
+      /* Distance from the bottom */
+      background-color: #007bff;
+      /* Blue button */
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      /* Ensure it's above other content */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none;
+      /* Hidden by default */
+      transition: opacity 0.3s ease;
+    }
+
+    .scroll-to-top-btn:hover {
+      background-color: #0056b3;
+      /* Darker blue on hover */
+    }
+  </style>
+  <script>
+    // Get the button
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+    // Show the button when the user scrolls down 200px
+    window.onscroll = function () {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollToTopBtn.style.display = "block"; // Show the button
+      } else {
+        scrollToTopBtn.style.display = "none"; // Hide the button
+      }
+    };
+
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Smooth scrolling
+      });
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <div id="ecalender" class="row" style="width:100%">
+    <div class="col-md-12">
+      <div class="text-center" style="width:100%;font-size: 20PX;">
+        <iframe style="margin-left: 50px;"
+          src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&category=_employment,_economicActivity,_inflation,_credit,_centralBanks,_confidenceIndex,_balance,_Bonds&importance=2,3&features=timeselector,filters&countries=25,6,72,35,43,12,4,5&calType=day&timeZone=8&lang=1"
+          width="60%" height="600PX" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0"
+          class="text-center"></iframe>
+        <div class="poweredBy" style="font-family: Arial, Helvetica, sans-serif;"><span
+            style="font-size: 22px;color: #333333;text-decoration: none;">Real Time Economic Calendar provided by <a
+              href="https://www.investing.com/" rel="nofollow" target="_blank"
+              style="font-size: 11px;color: #06529D; font-weight: bold;"
+              class="underline_link">Investing.com</a>.</span></div>
+
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
