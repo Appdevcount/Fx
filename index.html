@@ -57,6 +57,9 @@
       } else if (period === 'Cal') {
         document.getElementById("ecalender").scrollIntoView({ behavior: "smooth", block: "center" });
       }
+      else if (period === 'fxbookcandle') {
+        document.getElementById("fxbookcandle").scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     }
     function initializeTradingViewWidgets(widgetWidth,height) {
                 const widgetConfigs = [
@@ -164,6 +167,7 @@
     <button class="currency-button" onclick="setPeriod('1Hr')">1Hr</button>
     <button class="currency-button" onclick="setPeriod('1Candle')">1Candle</button>
     <button class="currency-button" onclick="setPeriod('Cal')">Cal</button>
+    <button class="currency-button" onclick="setPeriod('fxbookcandle')">CandleTrace</button>
   </div>
   <div id="chartsdiv" class="row" style="width:90%">
     <div class="col-md-12">
@@ -654,6 +658,60 @@
       </div>
     </div>
   </div>
+
+
+
+  <!-- ======================================================= -->
+   <div id="fxbookcandle">
+    <!-- myfxbook.com forexPattersWidget - Start -->
+ <div>
+  <iframe src="https://widgets.myfxbook.com/widgets/patterns.html?symbols=1,2,5,3,11,28,29,17,14,107&indicators=37,38,39,40,42,43,44,53,62,69&tType=patterns&timeFrame=5" width="100%" height="50%" frameborder="0"></iframe>
+
+</div>
+<div style="font-size: 10px">
+  &copy; Powered By
+  <a href="https://www.myfxbook.com" class="myfxbookLink" target="_self" rel="noopener nofollow">
+      <strong>
+          Myfxbook.com
+      </strong>
+  </a>
+</div>
+<!-- myfxbook.com forexPattersWidget - End -->
+<!-- myfxbook.com forexPattersWidget - Start -->
+<div>
+  <iframe src="https://widgets.myfxbook.com/widgets/patterns.html?symbols=12,46,7,4,27,9,8,47,10,6&indicators=37,38,39,40,42,43,44,53,62,69&tType=patterns&timeFrame=5" width="100%" height="50%" frameborder="0"></iframe>
+
+</div>
+<div style="font-size: 10px">
+  &copy; Powered By
+  <a href="https://www.myfxbook.com" class="myfxbookLink" target="_self" rel="noopener nofollow">
+      <strong>
+          Myfxbook.com
+      </strong>
+  </a>
+</div>
+<!-- myfxbook.com forexPattersWidget - End -->
+<!-- myfxbook.com forexPattersWidget - Start -->
+<div>
+  <iframe src="https://widgets.myfxbook.com/widgets/patterns.html?symbols=13,20,24,25,48,26,49,103&indicators=37,38,39,40,42,43,44,53,62,69&tType=patterns&timeFrame=5" width="100%" height="50%" frameborder="0"></iframe>
+
+</div>
+<div style="font-size: 10px">
+  &copy; Powered By
+  <a href="https://www.myfxbook.com" class="myfxbookLink" target="_self" rel="noopener nofollow">
+      <strong>
+          Myfxbook.com
+      </strong>
+  </a>
+</div>
+<!-- myfxbook.com forexPattersWidget - End -->
+
+<style>
+  iframe{
+      height: 60% !important;
+  }
+</style>
+</div>
 </body>
 
 </html>
